@@ -6,3 +6,8 @@ spring:
         active: default
         include:
             - document
+
+mqtt:
+    broker:
+        host: 129.254.174.120
+        port: 1883
