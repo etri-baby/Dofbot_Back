@@ -1,0 +1,4 @@
+mqtt:
+    broker:
+        host: tcp://129.254.174.120:1883
+    topic: my/topic

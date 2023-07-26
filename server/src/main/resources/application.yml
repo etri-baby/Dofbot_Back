@@ -6,3 +6,6 @@ spring:
         active: default
         include:
             - document
+            - mqtt
+
+
