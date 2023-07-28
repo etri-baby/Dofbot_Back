@@ -6,6 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class MqttConfig {
+
     private static final String MQTT_PUBLISHER_ID = "spring-server";
     private static final String MQTT_SERVER_ADDRES= "tcp://129.254.174.120:1883";
     private static IMqttClient instance;
