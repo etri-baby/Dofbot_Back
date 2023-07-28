@@ -71,6 +71,8 @@ public class MQTTController {
     @ResponseBody
     public String sendGamepadInput(@RequestParam("axis_0") double axis0,
                                    @RequestParam("axis_1") double axis1,
+                                   @RequestParam("axis_2") double axis2,
+                                   @RequestParam("axis_5") double axis5,
                                    @RequestParam("button_0") boolean button0,
                                    @RequestParam("button_1") boolean button1,
                                    @RequestParam("button_2") boolean button2,
@@ -80,8 +82,8 @@ public class MQTTController {
                                    @RequestParam("button_6") boolean button6,
                                    @RequestParam("button_7") boolean button7,
                                    @RequestParam("button_8") boolean button8) {
-        String payload = String.format("{\"axis_0\": %.2f, \"axis_1\": %.2f, \"button_0\": %b, \"button_1\": %b, \"button_2\": %b, \"button_3\": %b, \"button_4\": %b, \"button_5\": %b, \"button_6\": %b, \"button_7\": %b, \"button_8\": %b}",
-                axis0, axis1, button0, button1, button2, button3, button4, button5, button6, button7, button8);
+        String payload = String.format("{\"axis_0\": %.2f, \"axis_1\": %.2f, \"axis_2\": %.2f, \"axis_5\": %.2f, \"button_0\": %b, \"button_1\": %b, \"button_2\": %b, \"button_3\": %b, \"button_4\": %b, \"button_5\": %b, \"button_6\": %b, \"button_7\": %b, \"button_8\": %b}",
+                axis0, axis1, axis2, axis5, button0, button1, button2, button3, button4, button5, button6, button7, button8);
 
                 mqttService.publishMessage(payload);
                 return "게임패드 입력이 성공적으로 전송되었습니다.";
