@@ -25,6 +25,30 @@ public class MQTTService {
 
     private MqttClient client;
 
+    private volatile byte[] imageData = null;
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    private void tryReconnect() {
+        while (!client.isConnected()) {
+            try {
+                System.out.println("Trying to reconnect...");
+                client.connect(); // 재연결 시도
+                client.subscribe(topic);
+                System.out.println("Reconnected successfully.");
+            } catch (MqttException e) {
+                e.printStackTrace();
+                try {
+                    Thread.sleep(3000); // 3초 후 재시도
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+    }
+    
     @PostConstruct
     public void initialize() {
         try {
@@ -40,12 +64,13 @@ public class MQTTService {
                 @Override
                 public void connectionLost(Throwable throwable) {
                     System.out.println("Connection lost!");
+                    initialize();
                 }
 
                 @Override
                 public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
                     // 메시지 수신 시 호출되는 메서드
-                    System.out.println("Received message: " + new String(mqttMessage.getPayload()));
+                    imageData = mqttMessage.getPayload();
                 }
 
                 @Override
@@ -59,6 +84,8 @@ public class MQTTService {
             e.printStackTrace();
         }
     }
+    
+
 
     @PreDestroy
     public void cleanup() {

@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Raspberry Pi MQTT 통신 API")
 @RestController
-@RequestMapping(value = "/api/mqtt")
+@RequestMapping(value = "/api/smartarm")
 public class MQTTController {
     private final MQTTService mqttService;
 
@@ -66,6 +67,8 @@ public class MQTTController {
                 countDownLatch.await(waitMillis, TimeUnit.MILLISECONDS);
                 return messages;
     }
+
+    
 
     @PostMapping("/send_pad_data")
     @ResponseBody
